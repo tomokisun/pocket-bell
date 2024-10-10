@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  PLATFORM_IOS: iOS Simulator,name=iPhone 16 Pro,OS=18.0.0
+  PLATFORM_IOS: iOS Simulator,name=iPhone 16 Pro,OS=18.0
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
