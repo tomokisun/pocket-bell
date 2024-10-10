@@ -1,0 +1,15 @@
+{
+  "originHash" : "8d1c427354fd2d3c5e3999dbfe795ad4b43b40b140ef97f7a74d742caec8d4a7",
+  "pins" : [
+    {
+      "identity" : "swift-pocket-bell-two-touch-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomokisun/swift-pocket-bell-two-touch-parser",
+      "state" : {
+        "revision" : "3bc36fda3f10a6875a92166cd9df5c666a91e3e2",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
