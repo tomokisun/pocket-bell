@@ -44,9 +44,6 @@ public struct PocketBellReducer {
       case .view(.onTapRight):
         state.selection += 1
         return .none
-        
-      default:
-        return .none
       }
     }
   }

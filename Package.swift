@@ -1,17 +1,20 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 
 import PackageDescription
 
 let package = Package(
   name: "pocket-bell",
   platforms: [
-    .iOS(.v17),
+    .iOS(.v18),
   ],
   products: [
     .library(name: "APIClient", targets: ["APIClient"]),
     .library(name: "APIClientLive", targets: ["APIClientLive"]),
     .library(name: "AppFeature", targets: ["AppFeature"]),
     .library(name: "DesignSystem", targets: ["DesignSystem"]),
+    .library(name: "FirebaseAuthClient", targets: ["FirebaseAuthClient"]),
+    .library(name: "FirebaseCoreClient", targets: ["FirebaseCoreClient"]),
+    .library(name: "FirebaseCrashlyticsClient", targets: ["FirebaseCrashlyticsClient"]),
     .library(name: "PhoneNumberFeature", targets: ["PhoneNumberFeature"]),
     .library(name: "PocketBellFeature", targets: ["PocketBellFeature"]),
     .library(name: "SendFeature", targets: ["SendFeature"]),
@@ -27,6 +30,7 @@ let package = Package(
   targets: [
     .target(name: "APIClient", dependencies: [
       "SharedModels",
+      "FirebaseCoreClient",
       .product(name: "Dependencies", package: "swift-dependencies"),
       .product(name: "DependenciesMacros", package: "swift-dependencies"),
     ]),
@@ -43,6 +47,21 @@ let package = Package(
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
     .target(name: "DesignSystem", dependencies: []),
+    .target(name: "FirebaseAuthClient", dependencies: [
+      .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
+      .product(name: "Dependencies", package: "swift-dependencies"),
+      .product(name: "DependenciesMacros", package: "swift-dependencies"),
+    ]),
+    .target(name: "FirebaseCoreClient", dependencies: [
+      .product(name: "Dependencies", package: "swift-dependencies"),
+      .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
+      .product(name: "DependenciesMacros", package: "swift-dependencies"),
+    ]),
+    .target(name: "FirebaseCrashlyticsClient", dependencies: [
+      .product(name: "Dependencies", package: "swift-dependencies"),
+      .product(name: "DependenciesMacros", package: "swift-dependencies"),
+      .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk"),
+    ]),
     .target(name: "PhoneNumberFeature", dependencies: [
       "DesignSystem",
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
