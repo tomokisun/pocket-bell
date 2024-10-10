@@ -24,6 +24,27 @@ extension APIClient: DependencyKey {
             }
           }
       }
+    },
+    messages: {
+      AsyncThrowingStream { continuation in
+        let listener = Firestore.firestore()
+          .collection("/messages")
+          .order(by: "createdAt", descending: true)
+          .addSnapshotListener { snapshot, error in
+            if let error {
+              continuation.finish(throwing: error)
+            }
+            if let snapshot {
+              do {
+                try continuation.yield(
+                  try snapshot.documents.map { try $0.data(as: Message.self) }
+                )
+              } catch {
+                continuation.finish(throwing: error)
+              }
+            }
+          }
+      }
     }
   )
 }
