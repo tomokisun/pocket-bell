@@ -20,7 +20,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 @main
-struct BeMatchApp: App {
+struct PocketBellApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
   var body: some Scene {
