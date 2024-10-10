@@ -25,11 +25,13 @@ extension APIClient: DependencyKey {
           }
       }
     },
-    messages: {
+    messages: { phoneNumberHash in
       AsyncThrowingStream { continuation in
         let listener = Firestore.firestore()
           .collection("/messages")
+          .whereField("phoneNumberHash", isEqualTo: phoneNumberHash)
           .order(by: "createdAt", descending: true)
+          .limit(to: 20)
           .addSnapshotListener { snapshot, error in
             if let error {
               continuation.finish(throwing: error)
@@ -44,6 +46,15 @@ extension APIClient: DependencyKey {
             }
           }
       }
+    },
+    createMessage: { message in
+      try await Firestore.firestore()
+        .collection("/messages")
+        .addDocument(data: [
+          "text": message.text,
+          "phoneNumberHash": message.phoneNumberHash,
+          "createdAt": message.createdAt
+        ])
     }
   )
 }

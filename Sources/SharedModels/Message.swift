@@ -1,16 +1,16 @@
 import Foundation
 
 public struct Message: Codable {
-  public let message: String
+  public let text: String
   public let phoneNumberHash: String
   public let createdAt: Date
   
   public init(
-    message: String,
+    text: String,
     phoneNumberHash: String,
     createdAt: Date
   ) {
-    self.message = message
+    self.text = text
     self.phoneNumberHash = phoneNumberHash
     self.createdAt = createdAt
   }
