@@ -1,0 +1,21 @@
+name: app
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+env:
+  PLATFORM_IOS: iOS Simulator,name=iPhone 16 Pro,OS=18.0.0
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: xcodebuild build -workspace PocketBell.xcworkspace -scheme "PocketBell" -skipMacroValidation -destination platform="${{ env.PLATFORM_IOS }}" | xcpretty
