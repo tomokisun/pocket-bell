@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - run: xcodebuild build -workspace PocketBell.xcworkspace -scheme "PocketBell" -skipMacroValidation -destination platform="${{ env.PLATFORM_IOS }}" | xcpretty
