@@ -36,9 +36,8 @@ extension APIClient: DependencyKey {
             }
             if let snapshot {
               do {
-                try continuation.yield(
-                  try snapshot.documents.map { try $0.data(as: Message.self) }
-                )
+                let documents = try snapshot.documents.map { try $0.data(as: Message.self) }
+                continuation.yield(documents)
               } catch {
                 continuation.finish(throwing: error)
               }
