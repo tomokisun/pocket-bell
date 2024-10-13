@@ -7,7 +7,7 @@ public struct PhoneNumberReducer {
   public init() {}
   
   @ObservableState
-  public struct State {
+  public struct State: Equatable {
     var phoneNumber = ""
 
     public init() {}

@@ -12,6 +12,14 @@ import SplashFeature
 public struct AppReducer: Sendable {
   public init() {}
   
+  @Reducer(state: .equatable, action: .sendable)
+  public enum Child {
+    case splash(SplashReducer)
+    case phoneNumber(PhoneNumberReducer)
+    case pocketBell(PocketBellReducer)
+    case verify(VerifyReducer)
+  }
+  
   @ObservableState
   public enum State {
     case splash(SplashReducer.State)

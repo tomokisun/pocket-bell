@@ -7,7 +7,7 @@ public struct VerifyReducer {
   public init() {}
   
   @ObservableState
-  public struct State {
+  public struct State: Equatable {
     var code = ""
     
     public init() {}

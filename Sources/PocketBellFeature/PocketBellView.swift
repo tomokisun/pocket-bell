@@ -8,7 +8,7 @@ public struct PocketBellReducer {
   public init() {}
   
   @ObservableState
-  public struct State {
+  public struct State: Equatable {
     var selection: Int = 0
     var messages: [String] = [
       "5152324493674010372341043112",
