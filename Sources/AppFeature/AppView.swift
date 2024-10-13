@@ -39,18 +39,6 @@ public struct AppReducer: Sendable {
   public var body: some ReducerOf<AppReducer> {
     Reduce { state, action in
       switch action {
-      case .view(.onTask):
-        state = .phoneNumber(.init())
-        return .none
-
-      case .phoneNumber(.view(.onTapHash)):
-        state = .verify(.init())
-        return .none
-
-      case .verify(.view(.onTapHash)):
-        state = .pocketBell(.init())
-        return .none
-
       case let .globalConfigRespnse(.success(config)):
         print(config)
         return .none
