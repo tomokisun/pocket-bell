@@ -1,10 +1,11 @@
 import AppFeature
+import SplashFeature
 import ComposableArchitecture
 import SwiftUI
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
   let store = Store(
-    initialState: AppReducer.State.splash,
+    initialState: AppReducer.State.splash(SplashReducer.State()),
     reducer: {
       AppReducer()
         ._printChanges()

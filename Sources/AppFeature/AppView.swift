@@ -6,6 +6,7 @@ import SendFeature
 import VerifyFeature
 import SharedModels
 import APIClient
+import SplashFeature
 
 @Reducer
 public struct AppReducer: Sendable {
@@ -13,13 +14,14 @@ public struct AppReducer: Sendable {
   
   @ObservableState
   public enum State {
-    case splash
+    case splash(SplashReducer.State)
     case phoneNumber(PhoneNumberReducer.State)
     case pocketBell(PocketBellReducer.State)
     case verify(VerifyReducer.State)
   }
   
   public enum Action: Sendable, ViewAction {
+    case splash(SplashReducer.Action)
     case phoneNumber(PhoneNumberReducer.Action)
     case pocketBell(PocketBellReducer.Action)
     case verify(VerifyReducer.Action)
@@ -61,6 +63,9 @@ public struct AppReducer: Sendable {
         return .none
       }
     }
+    .ifCaseLet(\.splash, action: \.splash) {
+      SplashReducer()
+    }
     .ifCaseLet(\.phoneNumber, action: \.phoneNumber) {
       PhoneNumberReducer()
     }
@@ -85,7 +90,9 @@ public struct AppView: View {
     Group {
       switch store.state {
       case .splash:
-        ProgressView()
+        if let store = store.scope(state: \.splash, action: \.splash) {
+          SplashView(store: store)
+        }
 
       case .phoneNumber:
         if let store = store.scope(state: \.phoneNumber, action: \.phoneNumber) {

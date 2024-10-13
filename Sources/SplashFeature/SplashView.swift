@@ -16,6 +16,12 @@ public struct SplashReducer {
 }
 
 public struct SplashView: View {
+  @Bindable public var store: StoreOf<SplashReducer>
+  
+  public init(store: StoreOf<SplashReducer>) {
+    self.store = store
+  }
+  
   public var body: some View {
     ProgressView()
       .tint(Color.white)
