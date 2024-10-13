@@ -19,6 +19,7 @@ let package = Package(
     .library(name: "PocketBellFeature", targets: ["PocketBellFeature"]),
     .library(name: "SendFeature", targets: ["SendFeature"]),
     .library(name: "SharedModels", targets: ["SharedModels"]),
+    .library(name: "SplashFeature", targets: ["SplashFeature"]),
     .library(name: "VerifyFeature", targets: ["VerifyFeature"]),
   ],
   dependencies: [
@@ -42,6 +43,7 @@ let package = Package(
       "APIClient",
       "SendFeature",
       "VerifyFeature",
+      "SplashFeature",
       "PocketBellFeature",
       "PhoneNumberFeature",
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
@@ -77,6 +79,9 @@ let package = Package(
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
     .target(name: "SharedModels", dependencies: []),
+    .target(name: "SplashFeature", dependencies: [
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
     .target(name: "VerifyFeature", dependencies: [
       "DesignSystem",
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
