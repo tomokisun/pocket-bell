@@ -23,12 +23,14 @@ public struct AppReducer: Sendable {
   @ObservableState
   public struct State: Equatable {
     public var child: Child.State = .splash(SplashReducer.State())
+    public var appDelegate = AppDelegateReducer.State()
 
     public init() {}
   }
   
   public enum Action: Sendable {
     case child(Child.Action)
+    case appDelegate(AppDelegateReducer.Action)
     case globalConfigRespnse(Result<GlobalConfig, any Error>)
   }
   
@@ -37,6 +39,9 @@ public struct AppReducer: Sendable {
   public var body: some ReducerOf<AppReducer> {
     Scope(state: \.child, action: \.child) {
       Child.body
+    }
+    Scope(state: \.appDelegate, action: \.appDelegate) {
+      AppDelegateReducer()
     }
     Reduce { state, action in
       switch action {

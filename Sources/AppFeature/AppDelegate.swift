@@ -7,8 +7,8 @@ public struct AppDelegateReducer {
   @ObservableState
   public struct State: Equatable {}
 
-  public enum Action {
-    case didFinishLaunching(UIApplication, [UIApplication.LaunchOptionsKey: Any]?)
+  public enum Action: Sendable {
+    case didFinishLaunching
   }
 
   @Dependency(FirebaseCoreClient.self) var firebaseCore
