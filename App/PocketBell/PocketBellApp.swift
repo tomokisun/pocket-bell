@@ -5,7 +5,7 @@ import SwiftUI
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
   let store = Store(
-    initialState: AppReducer.State.splash(SplashReducer.State()),
+    initialState: AppReducer.State(),
     reducer: {
       AppReducer()
         ._printChanges()

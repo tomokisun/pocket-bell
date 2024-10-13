@@ -21,24 +21,23 @@ public struct AppReducer: Sendable {
   }
   
   @ObservableState
-  public enum State {
-    case splash(SplashReducer.State)
-    case phoneNumber(PhoneNumberReducer.State)
-    case pocketBell(PocketBellReducer.State)
-    case verify(VerifyReducer.State)
+  public struct State: Equatable {
+    public var child: Child.State = .splash(SplashReducer.State())
+
+    public init() {}
   }
   
   public enum Action: Sendable {
-    case splash(SplashReducer.Action)
-    case phoneNumber(PhoneNumberReducer.Action)
-    case pocketBell(PocketBellReducer.Action)
-    case verify(VerifyReducer.Action)
+    case child(Child.Action)
     case globalConfigRespnse(Result<GlobalConfig, any Error>)
   }
   
   @Dependency(APIClient.self) var api
   
   public var body: some ReducerOf<AppReducer> {
+    Scope(state: \.child, action: \.child) {
+      Child.body
+    }
     Reduce { state, action in
       switch action {
       case let .globalConfigRespnse(.success(config)):
@@ -53,18 +52,6 @@ public struct AppReducer: Sendable {
         return .none
       }
     }
-    .ifCaseLet(\.splash, action: \.splash) {
-      SplashReducer()
-    }
-    .ifCaseLet(\.phoneNumber, action: \.phoneNumber) {
-      PhoneNumberReducer()
-    }
-    .ifCaseLet(\.pocketBell, action: \.pocketBell) {
-      PocketBellReducer()
-    }
-    .ifCaseLet(\.verify, action: \.verify) {
-      VerifyReducer()
-    }
   }
 }
 
@@ -77,24 +64,24 @@ public struct AppView: View {
   
   public var body: some View {
     Group {
-      switch store.state {
+      switch store.scope(state: \.child, action: \.child).state {
       case .splash:
-        if let store = store.scope(state: \.splash, action: \.splash) {
+        if let store = store.scope(state: \.child.splash, action: \.child.splash) {
           SplashView(store: store)
         }
 
       case .phoneNumber:
-        if let store = store.scope(state: \.phoneNumber, action: \.phoneNumber) {
+        if let store = store.scope(state: \.child.phoneNumber, action: \.child.phoneNumber) {
           PhoneNumberView(store: store)
         }
 
       case .pocketBell:
-        if let store = store.scope(state: \.pocketBell, action: \.pocketBell) {
+        if let store = store.scope(state: \.child.pocketBell, action: \.child.pocketBell) {
           PocketBellView(store: store)
         }
 
       case .verify:
-        if let store = store.scope(state: \.verify, action: \.verify) {
+        if let store = store.scope(state: \.child.verify, action: \.child.verify) {
           VerifyView(store: store)
         }
       }
