@@ -11,3 +11,4 @@ Bootstrap/.swiftpm
 Assets/Audio/*
 Audio.zip
 /Package.resolved
+GoogleService-Info.plist
