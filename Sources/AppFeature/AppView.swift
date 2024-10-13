@@ -20,18 +20,12 @@ public struct AppReducer: Sendable {
     case verify(VerifyReducer.State)
   }
   
-  public enum Action: Sendable, ViewAction {
+  public enum Action: Sendable {
     case splash(SplashReducer.Action)
     case phoneNumber(PhoneNumberReducer.Action)
     case pocketBell(PocketBellReducer.Action)
     case verify(VerifyReducer.Action)
     case globalConfigRespnse(Result<GlobalConfig, any Error>)
-    case view(View)
-
-    @CasePathable
-    public enum View: Sendable {
-      case onTask
-    }
   }
   
   @Dependency(APIClient.self) var api
@@ -66,7 +60,6 @@ public struct AppReducer: Sendable {
   }
 }
 
-@ViewAction(for: AppReducer.self)
 public struct AppView: View {
   @Bindable public var store: StoreOf<AppReducer>
   
@@ -98,6 +91,5 @@ public struct AppView: View {
         }
       }
     }
-    .task { await send(.onTask).finish() }
   }
 }
